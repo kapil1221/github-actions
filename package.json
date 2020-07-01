@@ -1,6 +1,6 @@
 {
   "name": "tempka",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A JavaScript-based private Tezos Blockchain Dev Tool that lives entirely on your local machine.",
   "main": "tezster.js",
   "scripts": {
