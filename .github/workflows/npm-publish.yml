@@ -31,12 +31,7 @@ jobs:
 
       - name: Publish latest release
         run: npm publish
-        if: !contains(steps.package-version.outputs.version, 'beta')
+        if: contains(steps.package-version.outputs.version, 'beta')
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  
             
-      - name: Publish beta release
-        run: npm publish --tag beta
-        if: contains('steps.package-version.outputs.version', 'beta')
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
