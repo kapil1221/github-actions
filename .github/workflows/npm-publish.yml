@@ -30,9 +30,6 @@ jobs:
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
 
-      - name: Show version number
-        run: echo "Version is ${{ steps.package-version.outputs.version }}"
-
       - name: Publish latest release
         run: npm publish
         if: github.ref == 'refs/heads/master'
@@ -41,7 +38,7 @@ jobs:
             
       - name: Publish beta release
         run: npm publish --tag beta
-        if: github.ref == 'refs/heads/beta-release'
+        if: steps.package-version.outputs.version == '*beta*'
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
