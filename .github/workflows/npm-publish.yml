@@ -17,7 +17,6 @@ jobs:
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
-    if: 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
