@@ -29,6 +29,8 @@ jobs:
       - name: get-package-version
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
+
+      - name: Show version number
         run: echo "Version is ${{ steps.package-version.outputs.version }}"
 
       - name: Publish latest release
