@@ -26,6 +26,12 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
 
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: packages/tempka
+
       - name: Publish latest release
         run: npm publish
         if: github.ref == 'refs/heads/master'
