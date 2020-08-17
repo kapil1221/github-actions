@@ -9,23 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{github.ref}}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    if: 
-    steps:
-      - run: echo ${{github}}
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish --tag beta
-        env: 
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
