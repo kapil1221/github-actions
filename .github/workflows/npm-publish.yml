@@ -14,4 +14,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
+        with:
+          BRANCH_PREFIX: release/
 
