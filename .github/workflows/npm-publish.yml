@@ -31,7 +31,7 @@ jobs:
 
       - name: Publish latest release
         run: npm publish
-        if: contains(steps.package-version.outputs.version, 'beta')
+        if: contains(steps.package-version.outputs.version, 'mn')
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  
             
