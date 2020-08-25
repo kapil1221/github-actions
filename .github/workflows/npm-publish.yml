@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - beta-release
 
 jobs:
   build:
@@ -27,7 +28,7 @@ jobs:
       - name:  'Automated Version Bump'
         uses:  'phips28/gh-action-bump-version@master'
         with:
-          tag-prefix:  '' 
+          tag-prefix:  ''
 
       - name: get-package-version
         uses: tyankatsu0105/read-package-version-actions@v1
