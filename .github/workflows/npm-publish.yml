@@ -17,13 +17,17 @@ jobs:
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
-    if: 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        with:
+          tag-prefix:  '' 
 
       - name: get-package-version
         uses: tyankatsu0105/read-package-version-actions@v1
