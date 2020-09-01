@@ -30,6 +30,8 @@ jobs:
         uses:  'phips28/gh-action-bump-version@master'
         with:
           tag-prefix:  ''
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Fetch Package Version
         uses: tyankatsu0105/read-package-version-actions@v1
