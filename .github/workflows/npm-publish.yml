@@ -28,6 +28,7 @@ jobs:
       - name:  'Version Bump'
         if: github.ref == 'refs/heads/master'
         uses:  'phips28/gh-action-bump-version@master'
+        uses: 'ridedott/merge-me-action@master'
         with:
           tag-prefix:  ''
         env:
