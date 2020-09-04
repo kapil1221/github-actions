@@ -3,34 +3,8 @@ name: Tezster-CLI
 on:
   push:
     branches:
-      - beta
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    if: 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish --tag beta
-        env: 
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-on:
-  push:
-    branches:
       - master
+      - dev
 
 jobs:
   build:
@@ -44,13 +18,35 @@ jobs:
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
-    if: 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
-        env: 
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name:  'Version Bump'
+        if: github.ref == 'refs/heads/master'
+        uses: 'phips28/gh-action-bump-version@master'
+        uses: 'ridedott/merge-me-action@master'
+        with:
+          tag-prefix:  ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS_TOKEN }} 
+
+      - name: Fetch Package Version
+        uses: tyankatsu0105/read-package-version-actions@v1
+        id: package-version
+
+      - name: Publish Latest Release
+        if: "!contains(steps.package-version.outputs.version, 'beta') && github.ref == 'refs/heads/master'"
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  
+            
+      - name: Publish Beta Release
+        if: contains(steps.package-version.outputs.version, 'beta') && github.ref == 'refs/heads/dev'
+        run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    
